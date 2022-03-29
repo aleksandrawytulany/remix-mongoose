@@ -25,6 +25,7 @@ export function meta() {
 }
 
 export default function App() {
+
   return (
     <html lang="en">
       <head>
@@ -33,11 +34,11 @@ export default function App() {
       </head>
       <body className="bg-slate-100 text-slate-800 font-sans p-4">
         <header className="pb-3 mb-4 border-b-2">
-          <Link to="/" className="hover:underline text-blue-600">
+          <Link to="/" className="hover:underline text-blue-600 font-bold">
             Home
           </Link>
-          <Link to="/snippets/new" className="ml-3 hover:underline text-blue-600">
-            New code snippet
+          <Link to="/snippets/new" className="ml-3 hover:underline text-blue-600 font-bold">
+            New code
           </Link>
         </header>
         <Outlet />

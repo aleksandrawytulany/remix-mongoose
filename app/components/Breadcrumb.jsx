@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "remix";
 
 export default function Breadcrumb({ links = [] }) {
-  const breadcrumbs = [{ to: "/", title: "Home" }, ...links];
+  const breadcrumbs = [...links];
 
   return (
     <nav className="mb-4 text-sm font-semibold">

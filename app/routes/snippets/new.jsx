@@ -1,5 +1,6 @@
 import { Form, redirect, json, useActionData } from "remix";
 import connectDb from "~/db/connectDb.server";
+import Button from "~/components/Button.jsx";
 // import Breadcrumb from "~/components/Breadcrumb.jsx";
 
 export async function action({ request }) {
@@ -26,7 +27,7 @@ export default function CreateBook() {
   return (
     <div>
       {/* <Breadcrumb links={[{ to: "/books", title: "Books" }]} /> */}
-      <h1>Create snippet</h1>
+      <h1 className="text-2xl font-bold mb-4">Create snippet</h1>
       <Form method="post">
         {/* snippet title */}
         <label htmlFor="title" className="block">
@@ -87,7 +88,7 @@ export default function CreateBook() {
           }
         />
         <br />
-        <button type="submit">Save</button>
+        <Button type="submit">Save</Button>
       </Form>
     </div>
   );
