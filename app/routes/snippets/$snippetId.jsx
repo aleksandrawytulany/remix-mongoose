@@ -1,7 +1,38 @@
-import { useLoaderData, useCatch, json, Form } from "remix";
+import { useLoaderData, useCatch, json, Form, redirect } from "remix";
 import connectDb from "~/db/connectDb.server.js";
 import Breadcrumb from "~/components/Breadcrumb.jsx";
 import Button from "~/components/Button.jsx";
+
+export async function action({ request }) {
+  const form = await request.formData();
+  const db = await connectDb();
+  const snippetID = form.get("id");
+  const action = form.get("_action");
+  console.log(form);
+
+  if(action === "delete") {
+    try {
+      const newBook = await db.models.Snippet.findByIdAndDelete(snippetID);
+      return redirect(`/`);
+    } catch (error) {
+      return json(
+        { errors: error.errors, values: Object.fromEntries(form) },
+        { status: 400 }
+      );
+    }
+  }
+
+  if(action === "update") {
+    try {
+      return redirect(`/update/${snippetID}`);
+    } catch (error) {
+      return json(
+        { errors: error.errors, values: Object.fromEntries(form) },
+        { status: 400 }
+      );
+    }
+  }
+}
 
 export async function loader({ params }) {
   const db = await connectDb();
@@ -28,25 +59,28 @@ export default function BookPage() {
     <div>
       <Breadcrumb links={[{ to: "/", title: "Back to snippets" }]} />
       <h1 className="text-2xl font-bold mb-4">{snippet.title}</h1>
-      <code>
-        <pre>{JSON.stringify(snippet, null, 2)}</pre>
-      </code>
+      {/* <code> */}
+        {/* <pre>{JSON.stringify(snippet, null, 2)}</pre> */}
+        <pre>{snippet?.snippet}</pre>
+      {/* </code> */}
+
+      <p>{snippet.language}</p>
+      <p>{snippet.codeSnippet}</p>
+      <p>{snippet.description}</p>
       <div className=" flex justify-between w-48">
-        <Button type="submit" destructive>
-            Delete
-          </Button>
-
-          <Button type="submit">
-            Update
-          </Button>
+        <Form method="post">
+          <input type="hidden" name="id" value={snippet._id}></input>
+          <Button type="submit" name="_action" value="delete" destructive>
+              Delete
+            </Button>
+        </Form>
+        <Form method="post">
+            <input type="hidden" name="id" value={snippet._id}></input>
+            <Button type="submit" name="_action" value="update">
+              Update
+            </Button>
+        </Form>
         </div>
-      {/* <Form method="post" className="mt-5 pt-2 border-t border-gray-200">
-        <input type="hidden" name="_method" value="delete" />
-        <button type="submit" className="mr-2" destructive>
-          Delete
-        </button>
-      </Form> */}
-
     </div>
   );
 }
