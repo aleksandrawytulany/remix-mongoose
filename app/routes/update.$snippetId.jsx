@@ -1,7 +1,7 @@
 import { Form, redirect, json, useLoaderData } from "remix";
 import connectDb from "~/db/connectDb.server";
 import Button from "~/components/Button.jsx";
-// import Breadcrumb from "~/components/Breadcrumb.jsx";
+import Breadcrumb from "~/components/Breadcrumb.jsx";
 
 export async function action({ request }) {
   const form = await request.formData();
@@ -38,8 +38,8 @@ export default function CreateBook() {
 
   return (
     <div>
-      {/* <Breadcrumb links={[{ to: "/books", title: "Books" }]} /> */}
-      <h1 className="text-2xl font-bold mb-4">Update snippet</h1>
+      <Breadcrumb links={[{ to: "/", title: "Back to snippets" }]} />
+      <h1 className="text-2xl font-bold mb-10">Update your snippet</h1>
       <Form method="post">
         {/* snippet title */}
         <label htmlFor="title" className="block">
@@ -50,9 +50,9 @@ export default function CreateBook() {
           name="title"
           defaultValue={snippet.title}
           id="title"
-          className={
-            snippet.title ? "border-2 border-red-500" : null
-          }
+          // className={
+          //   snippet.title ? "border-2 border-red-500" : null
+          // }
         />
         {/* {actionData?.errors.title && (
           <p className="text-red-500">{actionData.errors.title.message}</p>
@@ -67,40 +67,40 @@ export default function CreateBook() {
           name="language"
           defaultValue={snippet.language}
           id="author"
-          className={
-            snippet.language ? "border-2 border-red-500" : null
-          }
+          // className={
+          //   snippet.language ? "border-2 border-red-500" : null
+          // }
+        />
+
+         {/* code description */}
+         <label htmlFor="description" className="block">
+          Code description
+        </label>
+        <textarea
+          type="text"
+          name="description"
+          defaultValue={snippet.description}
+          id="description"
+          // className={
+          //   snippet.description ? "border-2 border-red-500" : null
+          // }
         />
 
         {/* code snippet */}
         <label htmlFor="codeSnippet" className="block">
           Code snippet
         </label>
-        <input
-          type="textarea"
+        <textarea
+          type="text"
           name="codeSnippet"
           defaultValue={snippet.codeSnippet}
           id="codeSnippet"
-          className={
-            snippet.codeSnippet ? "border-2 border-red-500" : null
-          }
-        />
+          // className={
+          //   snippet.codeSnippet ? "border-2 border-red-500" : null
+          // }
+        /><br />
 
-        {/* code description */}
-        <label htmlFor="description" className="block">
-          Code description
-        </label>
-        <input
-          type="textarea"
-          name="description"
-          defaultValue={snippet.description}
-          id="description"
-          className={
-            snippet.description ? "border-2 border-red-500" : null
-          }
-        />
-        <br />
-        <Button type="submit">Save</Button>
+        <Button type="submit">Update</Button>
       </Form>
     </div>
   );

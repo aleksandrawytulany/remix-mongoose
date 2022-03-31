@@ -8,11 +8,17 @@ import {
   ScrollRestoration,
 } from "remix";
 import styles from "~/tailwind.css";
+import style from "~/style.css";
+import Button from "~/components/Button.jsx";
 
 export const links = () => [
   {
     rel: "stylesheet",
     href: styles,
+  },
+  {
+    rel: "stylesheet",
+    href: style,
   },
 ];
 
@@ -33,12 +39,12 @@ export default function App() {
         <Links />
       </head>
       <body className="bg-slate-100 text-slate-800 font-sans p-4">
-        <header className="pb-3 mb-4 border-b-2">
+        <header className="pb-3 mb-4 border-b-2 flex justify-between items-center">
           <Link to="/" className="hover:underline text-blue-600 font-bold">
-            Home
+            Code snippets
           </Link>
           <Link to="/snippets/new" className="ml-3 hover:underline text-blue-600 font-bold">
-            New code
+            <Button>New code</Button>
           </Link>
         </header>
         <Outlet />

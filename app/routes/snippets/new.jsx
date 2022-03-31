@@ -27,7 +27,7 @@ export default function CreateBook() {
   return (
     <div>
       {/* <Breadcrumb links={[{ to: "/books", title: "Books" }]} /> */}
-      <h1 className="text-2xl font-bold mb-4">Create snippet</h1>
+      <h1 className="text-2xl font-bold mb-10">Create snippet</h1>
       <Form method="post">
         {/* snippet title */}
         <label htmlFor="title" className="block">
@@ -60,26 +60,12 @@ export default function CreateBook() {
           }
         />
 
-        {/* code snippet */}
-        <label htmlFor="codeSnippet" className="block">
-          Code snippet
-        </label>
-        <input
-          type="textarea"
-          name="codeSnippet"
-          defaultValue={actionData?.values.codeSnippet}
-          id="codeSnippet"
-          className={
-            actionData?.errors.codeSnippet ? "border-2 border-red-500" : null
-          }
-        />
-
         {/* code description */}
         <label htmlFor="description" className="block">
           Code description
         </label>
-        <input
-          type="textarea"
+        <textarea
+          type="text"
           name="description"
           defaultValue={actionData?.values.description}
           id="description"
@@ -87,7 +73,20 @@ export default function CreateBook() {
             actionData?.errors.description ? "border-2 border-red-500" : null
           }
         />
-        <br />
+        {/* code snippet */}
+        <label htmlFor="codeSnippet" className="block">
+          Code snippet
+        </label>
+        <textarea
+          type="text"
+          name="codeSnippet"
+          defaultValue={actionData?.values.codeSnippet}
+          id="codeSnippet"
+          className= {
+            actionData?.errors.codeSnippet ? "border-2 border-red-500" : null
+          }
+        /> <br />
+
         <Button type="submit">Save</Button>
       </Form>
     </div>

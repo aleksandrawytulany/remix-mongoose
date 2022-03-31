@@ -57,16 +57,18 @@ export default function BookPage() {
   const snippet = useLoaderData();
   return (
     <div>
+      <img src="/app/icons/icons8-left-64.png" alt=""></img>
       <Breadcrumb links={[{ to: "/", title: "Back to snippets" }]} />
-      <h1 className="text-2xl font-bold mb-4">{snippet.title}</h1>
+      <p className="uppercase">{snippet.language}</p>
+      <h1 className="text-2xl font-bold mb-4 capitalize">{snippet.title}</h1>
       {/* <code> */}
         {/* <pre>{JSON.stringify(snippet, null, 2)}</pre> */}
-        <pre>{snippet?.snippet}</pre>
       {/* </code> */}
+      <pre>{snippet?.snippet}</pre>
+      
+      <p className="block mb-4">{snippet.description}</p>
+      <textarea className="block">{snippet.codeSnippet}</textarea>
 
-      <p>{snippet.language}</p>
-      <p>{snippet.codeSnippet}</p>
-      <p>{snippet.description}</p>
       <div className=" flex justify-between w-48">
         <Form method="post">
           <input type="hidden" name="id" value={snippet._id}></input>

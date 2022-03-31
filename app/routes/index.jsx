@@ -1,6 +1,6 @@
 import { useLoaderData, Link, Form } from "remix";
 import connectDb from "~/db/connectDb.server.js";
-import { useEffect, setData, useState } from 'react';
+import { useState } from 'react';
 import Button from "../components/Button";
 
 export async function loader() {
@@ -28,37 +28,36 @@ export default function Index() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">My code snippets</h1>
+      <section>
+        <h1 className="text-2xl font-bold mb-10">My code snippets</h1>
+      </section>
+
+      <div className="flex items-baseline">
       <Form method="GET" action="search">
-        <input type="text" name="q" className="mr-4 h-10 w-44" />
+        <input type="text" name="q" className="mr-4 h-10 w-80 focus:outline-blue-500" />
         <Button type="submit">Search</Button>
       </Form>
 
       {/* <label>Sort by</label> */}
-      <select name="" id="" value={selectedOption} className=" w-44 h-7 mb-6" onChange={sortBy}>
+      <select name="" id="" value={selectedOption} className=" w-44 h-10 mb-6 ml-6" onChange={sortBy}>
         <option value="value">Sort By</option>
         <option value="Title">Title</option>
         <option value="Date">Date</option>
       </select>
+      </div>
 
-      <div className="grid gap-4 grid-cols-3">
+      <div className="grid gap-4 grid-cols-4">
         {snippets.map((snippet) => {
           return (
-            <article className=" p-4 bg-white mb-2 rounded-xl" key={snippet._id}>
-                <Link
-                  to={`/snippets/${snippet._id}`}
-                  className="text-blue-600 hover:underline">
-                  <p className=" font-bold">{snippet.title}</p>
+            <Link
+              to={`/snippets/${snippet._id}`}
+              className=" text-black" 
+              key={snippet._id}>
+                <article className=" p-4 bg-white mb-2 rounded-xl border-t-4 border-blue-300 hover:border-4 duration-300" >
                   <p className=" text-xs uppercase">{snippet.language}</p>
-                </Link>
-              </article>
-            // <li key={snippet._id}>
-            //   <Link
-            //     to={`/snippets/${snippet._id}`}
-            //     className="text-blue-600 hover:underline">
-            //     {snippet.title}
-            //   </Link>
-            // </li>
+                  <h3 className=" font-bold text-lg capitalize">{snippet.title}</h3>
+                </article>
+            </Link>
           );
         })}
         </div>
