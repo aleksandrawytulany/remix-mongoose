@@ -8,7 +8,7 @@ export async function action({ request }) {
   const db = await connectDb();
   const snippetID = form.get("id");
   const action = form.get("_action");
-  console.log(form);
+
 
   if(action === "delete") {
     try {
@@ -42,6 +42,7 @@ export async function loader({ params }) {
       status: 404,
     });
   }
+  console.log(params);
   return json(snippet);
 }
 

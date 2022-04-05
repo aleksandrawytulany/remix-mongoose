@@ -3,11 +3,18 @@ import connectDb from "~/db/connectDb.server.js";
 import { useState } from 'react';
 import Button from "../components/Button";
 
-export async function loader() {
+export async function loader( { params, request } ) {
+  const url = new URL(request.url);
+  const querry = url.searchParams.get("q");
   const db = await connectDb();
   const snippets = await db.models.Snippet.find();
+  if(querry) {
+    const searchTitle = await db.models.Snippet.find( {
+      title: new RegExp(querry, "i"),
+    } );
+    return searchTitle;
+  }
   console.log(snippets);
-
   return snippets; 
 }
 
@@ -33,7 +40,7 @@ export default function Index() {
       </section>
 
       <div className="flex items-baseline">
-      <Form method="GET" action="search">
+      <Form method="GET">
         <input type="text" name="q" className="mr-4 h-10 w-80 focus:outline-blue-500" />
         <Button type="submit">Search</Button>
       </Form>

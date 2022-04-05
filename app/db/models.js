@@ -20,6 +20,10 @@ const bookSchema = new Schema({
     type: String, 
     required: true,
   },
+  // createdAt: {
+  //   type: String, 
+  //   required: false,
+  // },
 });
 
 export const models = [
