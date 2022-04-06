@@ -30,18 +30,26 @@ export default function Index() {
   const sortBy = (e) => {
     setSelectedOption(e.target.value);
   
-    if(e.target.value == "Title") {
-       sortedSnippets = snippets.sort((a, b) => a.title.localeCompare(b.title)
-      );
-      snippets = sortedSnippets;
-    }
+      if(e.target.value == "Title") {
+        sortedSnippets = snippets.sort((a, b) => a.title.localeCompare(b.title)
+        );
+        // snippets = sortedSnippets;
+      }
 
-    if (e.target.value == "dateUpdated") {
-      sortedSnippets = snippets.sort(
-        (a, b) => { return a.date_updated > b.date_updated ? 1 : -1;}
-      );
+      if (e.target.value == "dateUpdated") {
+        sortedSnippets = snippets.sort(
+          (a, b) => { return a.date_updated > b.date_updated ? 1 : -1;}
+        );
+      }
+
+      if(e.target.value == "favourited") {
+        sortedSnippets = snippets.sort(
+          (a, b) => { return a.favourite < b.favourite  ? 1 : -1;}
+        );
+        // return sortedSnippets;
     }
-}
+    snippets = sortedSnippets;
+  }
 
   return (
     <div>
@@ -60,7 +68,7 @@ export default function Index() {
         <option value="value">Sort By</option>
         <option value="Title">Title</option>
         <option value="dateUpdated" defaultValue="dateUpdated">Date</option>
-        <option value="Title">Favourite</option>
+        <option value="favourited">Favourite</option>
       </select>
 
       </div>

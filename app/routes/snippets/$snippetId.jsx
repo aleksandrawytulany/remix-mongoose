@@ -94,7 +94,7 @@ export default function BookPage() {
       <pre>{snippet?.snippet}</pre>
       
       <p className="block mb-4">{snippet.description}</p>
-      <textarea className="block">{snippet.codeSnippet}</textarea>
+      <textarea className="block bg-white" disabled>{snippet.codeSnippet}</textarea>
 
       <div className=" flex justify-between w-48">
         <Form method="post">
