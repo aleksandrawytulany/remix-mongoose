@@ -20,10 +20,16 @@ const bookSchema = new Schema({
     type: String, 
     required: true,
   },
-  // createdAt: {
-  //   type: String, 
-  //   required: false,
-  // },
+  date_updated: {
+    type: Date,
+  },
+  createdDate: {
+    type: String,
+  },
+  favourite: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 export const models = [

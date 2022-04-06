@@ -41,7 +41,7 @@ export default function App() {
       <body className="bg-slate-100 text-slate-800 font-sans p-4">
         <header className="pb-3 mb-4 border-b-2 flex justify-between items-center">
           <Link to="/" className="hover:underline text-blue-600 font-bold">
-            Code snippets
+            Snippets Library
           </Link>
           <Link to="/snippets/new" className="ml-3 hover:underline text-blue-600 font-bold">
             <Button>New code</Button>

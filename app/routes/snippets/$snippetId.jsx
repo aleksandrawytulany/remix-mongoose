@@ -2,8 +2,11 @@ import { useLoaderData, useCatch, json, Form, redirect } from "remix";
 import connectDb from "~/db/connectDb.server.js";
 import Breadcrumb from "~/components/Breadcrumb.jsx";
 import Button from "~/components/Button.jsx";
+import { BsBookmark } from "@react-icons/all-files/bs/BsBookmark";
+import { BsBookmarkFill } from "@react-icons/all-files/bs/BsBookmarkFill";
 
-export async function action({ request }) {
+
+export async function action({ params, request }) {
   const form = await request.formData();
   const db = await connectDb();
   const snippetID = form.get("id");
@@ -25,6 +28,24 @@ export async function action({ request }) {
   if(action === "update") {
     try {
       return redirect(`/update/${snippetID}`);
+    } catch (error) {
+      return json(
+        { errors: error.errors, values: Object.fromEntries(form) },
+        { status: 400 }
+      );
+    }
+  }
+
+  if(action === "favourite") {
+    const form = await request.formData();
+    const db = await connectDb();
+
+    try {
+      const snippet = await db.models.Snippet.findById(params.snippetId);
+      snippet.favourite = !snippet.favourite;
+      await snippet.save();
+
+      return null;
     } catch (error) {
       return json(
         { errors: error.errors, values: Object.fromEntries(form) },
@@ -58,10 +79,15 @@ export default function BookPage() {
   const snippet = useLoaderData();
   return (
     <div>
-      <img src="/app/icons/icons8-left-64.png" alt=""></img>
       <Breadcrumb links={[{ to: "/", title: "Back to snippets" }]} />
       <p className="uppercase">{snippet.language}</p>
-      <h1 className="text-2xl font-bold mb-4 capitalize">{snippet.title}</h1>
+      <div className=" flex flex-row">
+        <Form method="POST">
+              <input type="hidden" name="_action" value="favourite"></input>
+              <button type="submit">{snippet.favourite ? <BsBookmarkFill className=" float-left mr-2 text-3xl" /> : <BsBookmark className=" float-left mr-2 text-3xl" />}</button>
+        </Form>
+        <h1 className="text-2xl font-bold mb-4 capitalize">{snippet.title}</h1>
+      </div>
       {/* <code> */}
         {/* <pre>{JSON.stringify(snippet, null, 2)}</pre> */}
       {/* </code> */}

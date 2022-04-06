@@ -10,11 +10,12 @@ export async function action({ request }) {
   const language = form.get("language");
   const codeSnippet = form.get("codeSnippet");
   const description = form.get("description");
-  const createdAt = new Date();
-  const updatedAt = new Date();
+  const date = new Date();
+  const date_updated = Date.now();
+  let createdDate = date.getFullYear() + "-" + date.toLocaleString("default", { month: "short"}) + "-" + date.getDate();
 
   try {
-    const newBook = await db.models.Snippet.create({ title, language, codeSnippet, description, createdAt, updatedAt });
+    const newBook = await db.models.Snippet.create({ title, language, codeSnippet, description, date_updated, createdDate });
     return redirect(`/snippets/${newBook._id}`);
   } catch (error) {
     return json(
