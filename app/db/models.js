@@ -32,10 +32,30 @@ const bookSchema = new Schema({
   },
 });
 
+const userSchema = new Schema({
+  username: {
+    type: String,
+    required: [true, "You need an user name"],
+    minLength: [3, "That's too short"],
+  },
+  password: {
+    type: String,
+    required: [true, "You need a password"],
+    minLength: [8, "That's too short"],
+  },
+},
+  { timestamp: true }
+);
+
 export const models = [
   {
     name: "Snippet",
     schema: bookSchema,
     collection: "snippets",
+  },
+  {
+    name: "User",
+    schema: userSchema,
+    collection: "users",
   },
 ];
